@@ -1,0 +1,24 @@
+<div class="container">
+    <nav>
+        <ul>
+            <li><a href="/views/products"><img id="logoNav" src="/img/logoAlmacen.png" alt="Almacen de Productos"></a>
+            </li>
+        </ul>
+        <ul>
+            <li><a href="/views/products" class="contrast">Home 🏡</a></li>
+            <li><a href="/views/realtimeproducts" class="contrast">Productos en Tiempo Real⌚</a></li>
+        </ul>
+    </nav>
+    {{#if reason}}
+    <h1>Inicio de Sesión 🔐</h1>
+    <h2>{{reason}}</h2>
+    {{else}}
+    <h1>Inicio de Sesión 🔐 </h1>
+    {{/if}}
+    <input type="email" name="email" placeholder="Email" aria-label="Email" autocomplete="email" id="textEmail">
+    <input type="password" name="password" placeholder="Password" aria-label="Password" id="textPassword">
+    <input type="submit" value="Inciar sesión" id="loginButton" />
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/login.js"> </script>
