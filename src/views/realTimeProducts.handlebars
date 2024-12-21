@@ -10,7 +10,13 @@
         </ul>
     </nav>
     <hr />
-    <h1 class="hProd">Productos en TIEMPO REAL ⌚ </h1>
+    <h1 class="hProd">Productos en TIEMPO REAL ⌚</h1>
+    {{#if user}}
+    <h2 class="hProd">Bienvenid@ {{user.first_name}} ({{user.email}})! 👋</h2>
+    <h3 class="hProd"><a href="#" id="logoutButton">--Cerrar Sesión--</a></h3>
+    {{else}}
+    <h2 class="hProd"><a href="./login">Iniciar Sesión 🔐</a></h2>
+    {{/if}}
     <div id="filterSortDiv">
         <hr />
         <details>

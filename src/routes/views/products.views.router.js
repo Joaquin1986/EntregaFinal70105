@@ -1,14 +1,14 @@
 const { Router } = require('express');
-const { ProductViewsControllers } = require('../../controllers/product.views.controllers');
-const { passportViewsCallBack } = require('../../passport/passportViewsCallback');
-const { verifyAdmin } = require('../../middleware/verifyAdmin');
+const { ProductsViewsController } = require('../../controllers/views/products.views.controller');
+const { passportCallBack } = require('../../passport/passportCallBack');
+const { verifyViewsAdmin } = require('../../middleware/verifyAdmin');
 
 const productsViewsRouter = Router();
 
-productsViewsRouter.get('/products', ProductViewsControllers.getProducts);
+productsViewsRouter.get('/products', ProductsViewsController.getProducts);
 
-productsViewsRouter.get('/products/:pid', passportViewsCallBack('current'), ProductViewsControllers.getProductById);
+productsViewsRouter.get('/products/:pid', passportCallBack('current', 'views'), ProductsViewsController.getProductById);
 
-productsViewsRouter.get('/realTimeProducts', passportViewsCallBack('current'), verifyAdmin, ProductViewsControllers.getRealTimeProducts);
+productsViewsRouter.get('/realTimeProducts', passportCallBack('current', 'views'), verifyViewsAdmin, ProductsViewsController.getRealTimeProducts);
 
 module.exports = productsViewsRouter;

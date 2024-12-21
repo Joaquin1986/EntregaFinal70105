@@ -53,8 +53,8 @@
                 </tfoot>
             </table>
             <footer>
-                <div role="button" class="primary" tabindex="0" id="cartCheckoutButton" onclick="printOrderForm()">
-                    Enviar Orden📦</div>
+                <div role="button" class="primary" tabindex="0" id="cartCheckoutButton" onclick="purchaseCart()">
+                    Confirmar Orden📦</div>
                 <div role="button" class="secondary" onclick="deleteCart('/api/carts/{{cart._id}}')" tabindex="1"
                     id="cartDeleteButton">Borrar Carrito 🗑</div>
                 <div role="button" class="secondary" onclick="backToProducts(event)" tabindex="2" id="cartBackButton">

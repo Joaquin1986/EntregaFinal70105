@@ -1,6 +1,6 @@
-const { CartServices } = require('../services/cart.services');
+const { CartServices } = require('../../services/cart.services');
 
-class CartViewsControllers {
+class CartsViewsController {
 
     static async getCartById(req, res) {
         const { cid } = req.params;
@@ -29,4 +29,4 @@ class CartViewsControllers {
     }
 }
 
-module.exports = { CartViewsControllers }
+module.exports = { CartsViewsController }

@@ -155,7 +155,7 @@ function displayProductsInTable(products, cartId) {
                 </tfoot>
             </table>
             <footer>
-                <div role="button" class="primary" tabindex="0" id="cartCheckoutButton" onclick="printOrderForm()">Enviar Orden📦</div>
+                <div role="button" class="primary" tabindex="0" id="cartCheckoutButton" onclick="purchaseCart()">Confirmar Orden📦</div>
                 <div role="button" class="secondary" onclick="deleteCart('/api/carts/${cartId}')" tabindex="0"
                     id="cartDeleteButton">Borrar Carrito 🗑</div>
                 <div role="button" class="secondary" onclick="bac kToProducts(event)" tabindex="0" id="cartBackButton">
@@ -189,148 +189,50 @@ function disableMainButtons() {
     cartBackButton.innerText = '';
 }
 
-function disableSecondaryButtons() {
-    const placeOrderButton = document.getElementById('placeOrderButton');
-    const cartBackButtonSecondary = document.getElementById('cartBackButtonSecondary');
-    placeOrderButton.disabled = true;
-    placeOrderButton.setAttribute('aria-busy', 'true');
-    placeOrderButton.innerText = '';
-    cartBackButtonSecondary.disabled = true;
-    cartBackButtonSecondary.setAttribute('aria-busy', 'true');
-    cartBackButtonSecondary.innerText = '';
-}
-
-function printOrderForm() {
-    const cartDetailsDiv = document.getElementById('cartDetailsDiv');
-    cartDetailsDiv.innerHTML = '';
-    cartDetailsDiv.innerHTML = `
-    <form>
-  <fieldset>
-    <label>
-      Nombre Completo
-      <input
-        id="nameInput"
-        name="name"
-        placeholder="<Nombre completo aquí>"
-        autocomplete="name"
-        required
-      />
-    </label>
-        <label>
-      Dirección
-      <input
-        id="addressInput"
-        name="address"
-        placeholder="<Dirección aquí>"
-        autocomplete="shipping"
-        required
-      />
-    </label>
-    <label>
-      Email
-      <input
-        type="email"
-        id="emailInput"
-        name="email"
-        placeholder="<Email aquí>"
-        autocomplete="email"
-        required
-      />
-    </label>
-    <legend>Medio de Pago:
-      <label>
-    <input class="paymentMethodInput" type="radio" name="paymentMethod" checked value="cash"/>
-    Efectivo💵
-  </label>
-  <label>
-    <input class="paymentMethodInput" type="radio" name="paymentMethod" value="card" />
-    Tarjeta💳
-  </label>
-  </legend>
-  </fieldset>
-  <div
-    role="button"
-    onclick="placeNewOrder()"
-    id="placeOrderButton"
-  >Confirmar Orden 📃</div>
-  <div
-    role="button"
-    class="secondary"   
-    onclick="backToProducts(event)"
-    id="cartBackButtonSecondary"
-  >Volver a Productos 🏡</div>
-</form>
-    `;
-}
-
-async function placeNewOrder() {
-    const form = document.querySelector('form');
-    const name = document.getElementById('nameInput').value;
-    const address = document.getElementById('addressInput').value;
-    const email = document.getElementById('emailInput').value;
-    const radioPaymentMethod = document.getElementsByClassName('paymentMethodInput');
-    let paymentMethodChosen = '';
-    for (let i = 0; i < radioPaymentMethod.length; i++) {
-        if (radioPaymentMethod[i].checked) paymentMethodChosen = radioPaymentMethod[i].value;
-    }
-    if (!name || !address || !email) {
-        Swal.fire({
-            icon: "error",
-            title: "Error!",
-            text: `Datos incompletos, por favor llenar el formulario completo   `
+async function purchaseCart() {
+    try {
+        const response = await fetch('/api/carts/' + cartId + '/purchase', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
         });
-    } else {
-        const objData = {
-            "name": name,
-            "address": address,
-            "email": email,
-            "paymentMehod": paymentMethodChosen
-        }
-        try {
-            const response = await fetch('/api/carts/' + cartId + '/order', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(objData)
+        if (response.ok) {
+            const result = await response.json();
+            Swal.fire({
+                text: "Ticket #" + result.ticket + " confirmado!",
+                icon: "success"
             });
-            if (response.ok) {
-                const result = await response.json();
-                Swal.fire({
-                    text: "Orden #" + result.order + " confirmada!",
-                    icon: "success"
-                });
-                disableSecondaryButtons();
-                const cartDetailsDiv = document.getElementById('cartDetailsDiv');
-                cartDetailsDiv.innerHTML = '';
-                const orderSucceededDiv = document.createElement('div');
-                orderSucceededDiv.innerHTML = `<h1>Orden #${result.order} confirmada! ✅</h1>`;
-                orderSucceededDiv.id = 'orderSucceededDiv';
-                cartDetailsDiv.appendChild(orderSucceededDiv);
-                const backButtonDiv = document.createElement('div');
-                backButtonDiv.innerHTML = ` <div
+            disableMainButtons();
+            const cartDetailsDiv = document.getElementById('cartDetailsDiv');
+            cartDetailsDiv.innerHTML = '';
+            const orderSucceededDiv = document.createElement('div');
+            orderSucceededDiv.innerHTML = `<h1>Ticket #${result.ticket} confirmado! ✅</h1>`;
+            orderSucceededDiv.id = 'orderSucceededDiv';
+            cartDetailsDiv.appendChild(orderSucceededDiv);
+            const backButtonDiv = document.createElement('div');
+            backButtonDiv.innerHTML = ` <div
                                                 role="button"
                                                 class="secondary"   
                                                 onclick="backToProducts(event)"
                                                 id="cartBackButtonThird"
                                                 >Volver a Productos 🏡</div>`;
-                localStorage.removeItem('currentCartId');
-                cartDetailsDiv.appendChild(backButtonDiv);
-            } else {
-                const result = await response.json();
-                Swal.fire({
-                    icon: "error",
-                    title: "Error!",
-                    text: `No se pudo confirmar la orden: ${result.error}`
-                });
-            }
-        } catch (error) {
+            localStorage.removeItem('currentCartId');
+            cartDetailsDiv.appendChild(backButtonDiv);
+        } else {
+            const result = await response.json();
             Swal.fire({
                 icon: "error",
                 title: "Error!",
-                text: `Error interno al confirmar la orden: ${error}`
+                text: `No se pudo confirmar la orden: ${result.error}`
             });
         }
+    } catch (error) {
+        Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: `Error interno al confirmar la orden: ${error}`
+        });
     }
 }

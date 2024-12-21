@@ -1,9 +1,9 @@
 const { Router } = require('express');
-const { PetsControllers } = require('../../controllers/pets.controllers');
+const { PetsController } = require('../../controllers/api/pets.api.controller');
 const { passportCallBack } = require('../../passport/passportCallBack');
 
 const petsApiRouter = Router();
 
-petsApiRouter.get("/pets/:pid", passportCallBack('current'), PetsControllers.getPetById);
+petsApiRouter.get("/pets/:pid", passportCallBack('current', 'api'), PetsController.getPetById);
 
 module.exports = petsApiRouter;

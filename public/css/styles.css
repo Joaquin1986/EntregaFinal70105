@@ -44,6 +44,7 @@
 .product {
     padding: 15px;
     min-width: 350px;
+    max-width: 350px;
 }
 
 .product:hover {
@@ -184,6 +185,16 @@ input {
     margin-right: 20px;
     margin-bottom: 20px;
 }
+
+#loginMainButton {
+    transition: 0.4s;
+}
+
+#loginMainButton:hover {
+    filter: brightness(120%);
+
+}
+
 
 /* MEDIA QUERIES PARA ADAPTAR EL SITIO A LA RESOLUCIÓN DE PANTALLA */
 

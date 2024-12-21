@@ -1,10 +1,10 @@
 const { Router } = require('express');
-const { CartViewsControllers } = require('../../controllers/cart.views.controllers');
-const { passportViewsCallBack } = require('../../passport/passportViewsCallBack');
-const { verifyOwnCart } = require('../../middleware/verifyOwnCart');
+const { CartsViewsController } = require('../../controllers/views/carts.views.controller');
+const { passportCallBack } = require('../../passport/passportCallBack');
+const { verifyOwnCartViews } = require('../../middleware/verifyOwnCart');
 
 const cartsViewsRouter = Router();
 
-cartsViewsRouter.get('/carts/:cid', passportViewsCallBack('current'), verifyOwnCart, CartViewsControllers.getCartById);
+cartsViewsRouter.get('/carts/:cid', passportCallBack('current', 'views'), verifyOwnCartViews, CartsViewsController.getCartById);
 
 module.exports = cartsViewsRouter;

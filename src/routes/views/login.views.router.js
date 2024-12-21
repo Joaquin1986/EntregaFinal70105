@@ -1,8 +1,8 @@
 const { Router } = require('express');
-const { SessionsViewsControllers } = require('../../controllers/sessions.views.controllers');
+const { SessionsViewsController } = require('../../controllers/views/sessions.views.controller');
 
 const loginViewsRouter = Router();
 
-loginViewsRouter.get('/login', SessionsViewsControllers.login);
+loginViewsRouter.get('/login', SessionsViewsController.login);
 
 module.exports = loginViewsRouter;

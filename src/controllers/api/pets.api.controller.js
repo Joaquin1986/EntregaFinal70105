@@ -1,6 +1,6 @@
-const { PetRepository } = require("../repository/pet.repository");
+const { PetRepository } = require("../../repository/pet.repository");
 
-class PetsControllers {
+class PetsController {
 
     static async getPetById(req, res) {
         const { pid } = req.params;
@@ -19,4 +19,4 @@ class PetsControllers {
 
 }
 
-module.exports = { PetsControllers };
+module.exports = { PetsController };

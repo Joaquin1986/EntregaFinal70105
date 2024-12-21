@@ -13,7 +13,7 @@ const productsViewsRouter = require('./routes/views/products.views.router');
 const loginViewsRouter = require('./routes/views/login.views.router');
 const cartsViewsRouter = require('./routes/views/carts.views.router');
 
-const notFound404 = require('./middleware/notFound404');
+const { notFound404, notFound404Views } = require('./middleware/notFound404');
 const errorHandler = require('./middleware/errorHandler');
 
 const { publicPath, viewsPath } = require("./utils/utils");
@@ -41,6 +41,7 @@ initServer(app).then(() => {
         .use('/views', productsViewsRouter)
         .use('/views', loginViewsRouter)
         .use('/views', cartsViewsRouter)
+        .use('/views/*', notFound404Views)
         .use('*', notFound404)
         .use(errorHandler);
 });

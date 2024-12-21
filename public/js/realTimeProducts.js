@@ -15,6 +15,12 @@ const errorToast = Swal.mixin({ ...basicToast, background: '#bb0606' });
 
 const successToast = Swal.mixin({ ...basicToast, background: '#097e0f' });
 
+const logoutButton = document.getElementById('logoutButton');
+
+logoutButton.addEventListener('click', async () => {
+  await logout('/api/sessions/logout/');
+});
+
 const addProductButton = document.getElementById('addButton');
 
 addProductButton.addEventListener('click', async (e) => {
@@ -498,4 +504,39 @@ function filteredSortedSearch() {
         text: "Aplicando los parámetros establecidos..."
       }).then(() => window.location.href = url);
   
+  }
+
+  async function logout(url) {
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      if (response.ok) {
+        Swal.fire({
+          title: "Sesión finalizada",
+          text: "Su sesión ha sido cerrada exitosamente, vuelva pronto!",
+          icon: "success"
+        }).then(() => {
+          window.location.reload();
+        });
+      } else {
+        const result = await response.json();
+        Swal.fire({
+          icon: "error",
+          title: "No se pudo cerrar la sesión",
+          text: `Error al cerrar sesión: ${result.status} -> ${result.result}`
+        });
+        return false;
+      }
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Error de logout",
+        text: `Ocurrió un error al intentar cerrar sesión: ${error.message}`
+      });
+      return false;
+    }
   }

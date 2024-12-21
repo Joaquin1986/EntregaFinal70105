@@ -1,21 +1,21 @@
 const { Router } = require('express');
-const { CartControllers } = require('../../controllers/cart.controllers');
+const { CartsController } = require('../../controllers/api/carts.api.controllers');
 const { passportCallBack } = require('../../passport/passportCallBack');
 const { verifyOwnCart } = require('../../middleware/verifyOwnCart');
 
 const cartsApiRouter = Router();
 
-cartsApiRouter.get("/carts/:cid", passportCallBack('current'), verifyOwnCart, CartControllers.getCartById);
+cartsApiRouter.get("/carts/:cid", passportCallBack('current', 'api'), verifyOwnCart, CartsController.getCartById);
 
-cartsApiRouter.post("/carts/:cid/purchase", passportCallBack('current'), verifyOwnCart, CartControllers.purchaseCart);
+cartsApiRouter.post("/carts/:cid/purchase", passportCallBack('current', 'api'), verifyOwnCart, CartsController.purchaseCart);
 
-cartsApiRouter.put("/carts/:cid/products/:pid", passportCallBack('current'), verifyOwnCart, CartControllers.updateCartByProduct);
+cartsApiRouter.put("/carts/:cid/products/:pid", passportCallBack('current', 'api'), verifyOwnCart, CartsController.updateCartByProduct);
 
-cartsApiRouter.put("/carts/:cid", passportCallBack('current'), verifyOwnCart, CartControllers.updateCart);
+cartsApiRouter.put("/carts/:cid", passportCallBack('current', 'api'), verifyOwnCart, CartsController.updateCart);
 
-cartsApiRouter.delete("/carts/:cid", passportCallBack('current'), verifyOwnCart, CartControllers.deleteCart);
+cartsApiRouter.delete("/carts/:cid", passportCallBack('current', 'api'), verifyOwnCart, CartsController.deleteCart);
 
 // Elimina un producto de un carrito
-cartsApiRouter.delete("/carts/:cid/products/:pid", passportCallBack('current'), verifyOwnCart, CartControllers.deleteProductFromCart);
+cartsApiRouter.delete("/carts/:cid/products/:pid", passportCallBack('current', 'api'), verifyOwnCart, CartsController.deleteProductFromCart);
 
 module.exports = cartsApiRouter;

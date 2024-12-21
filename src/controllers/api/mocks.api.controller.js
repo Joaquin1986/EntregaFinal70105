@@ -1,11 +1,11 @@
-const { MockServices } = require('../services/mock.services');
+const { MockServices } = require('../../services/mock.services');
 const dotenv = require('dotenv').config();
 
 const USERS_LIMIT = process.env.USERS_LIMIT || 1000;
 const PETS_LIMIT = process.env.PETS_LIMIT || 2000;
 const PRODUCTS_LIMIT = process.env.PRODUCTS_LIMIT || 2000;
 
-class MockControllers {
+class MocksController {
 
     // Genera 100 mascotas falsas (mocks) de acuerdo a premisa de la Actividad Práctica
     static async generateFakePets(req, res) {
@@ -102,4 +102,4 @@ class MockControllers {
 
 }
 
-module.exports = { MockControllers };
+module.exports = { MocksController };

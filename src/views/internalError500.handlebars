@@ -10,8 +10,11 @@
         </ul>
     </nav>
     <hr />
-    <div id="text404Div">
-        <h1>Acceso denegado ⛔</h1>
-        <h2>{{info}}</h2>
+    <div id="text500Div">
+        <h1>Ha ocurrido un error interno (500) 🚧</h1>
+        <h2>Por favor, reintente un momento.</h2>
+        {{#if message}}
+        <h3>{{message}}</h3>
+        {{/if}}
     </div>
 </div>

@@ -1,8 +1,9 @@
-const { UserServices } = require('../services/user.services');
-const { createUserResponse } = require('../utils/utils');
-const passport = require('../passport/passport');
+const { UserServices } = require('../../services/user.services');
+const { LogoutServices } = require('../../services/logout.services');
+const { createUserResponse } = require('../../utils/utils');
+const passportGetUser = require('../../passport/passportGetUser')
 
-class SessionsControllers {
+class SessionsController {
 
     static async createUser(req, res) {
         try {
@@ -32,10 +33,9 @@ class SessionsControllers {
                 });
             const result = await UserServices.createUser("admin", first_name, last_name, email, age, password);
             if (!result.error) {
-                res.status(result.code).json({ "new admin user": result.userId });
+                return res.status(result.code).json({ "new admin user": result.userId });
             }
-            res.status(result.code).json({ "error": result.reason });
-            res.status(400).json({ "error": "request inválido" });
+            return res.status(result.code).json({ "error": result.reason });
         } catch (error) {
             return res.status(500).json({ "Error interno": error.message });
         }
@@ -78,6 +78,27 @@ class SessionsControllers {
         }
     }
 
+    static async logout(req, res) {
+        try {
+            passportGetUser('current', req, res);
+            if (req.user && req.cookies.token) {
+                const originalToken = req.cookies.token;
+                // Para que sea óptimo el uso de la BD, se debería implementar un proceso que limpie
+                // cada cierto tiempo la colección "logouts" (ya sea a nivel de la BD, servidor, etc.)
+                const result = await LogoutServices.create({ "token": originalToken });
+                if (result) {
+                    res.cookie('token', "#user-logged-out", { httpOnly: true });
+                    return res.status(200).json(createUserResponse(200, "Logged Out", req, "Your session has been closed"));
+                }
+                res.status(500).json({ '⛔Error:': 'Ocurrió un error al intentar cerrar sesión -> (acceso a la DB)' });
+            } else {
+                return res.status(400).json(createUserResponse(400, "Invalid Request", req, "No user logged on"));
+            }
+        } catch (error) {
+            res.status(500).json({ '⛔Error interno:': error.message });
+        }
+    }
+
     static async getCurrentSession(req, res) {
         try {
             if (req.user) {
@@ -92,4 +113,4 @@ class SessionsControllers {
     }
 }
 
-module.exports = { SessionsControllers };
+module.exports = { SessionsController };

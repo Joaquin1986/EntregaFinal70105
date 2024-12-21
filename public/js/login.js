@@ -13,8 +13,8 @@ const loginButton = document.getElementById('loginButton');
 const textEmail = document.getElementById('textEmail');
 const textPassword = document.getElementById('textPassword');
 
-let url = window.location.href.split('=')[1];
-if (!url) url = '/views/products'
+let futureUrl = window.location.href.split('=')[1];
+if (!futureUrl) futureUrl = '/views/products';
 
 loginButton.addEventListener('click', async () => {
     let bodyContent = new FormData();
@@ -24,13 +24,9 @@ loginButton.addEventListener('click', async () => {
     };
     bodyContent.append("email", textEmail.value);
     bodyContent.append("password", textPassword.value);
-    const response = await login("/api/sessions/login", result);
-    if (response)
-        window.location.href = url;
+    await login("/api/sessions/login", result);
 });
 
-
-//Función de creación de Producto
 async function login(url, data) {
     try {
         const response = await fetch(url, {
@@ -46,8 +42,10 @@ async function login(url, data) {
                 title: "Login exitoso!",
                 text: "Se ha iniciado sesión en la App",
                 icon: "success"
+            }).then(() => {
+                window.location.href = futureUrl;
             });
-            return result;
+            return true;
         } else {
             const result = await response.json();
             Swal.fire({

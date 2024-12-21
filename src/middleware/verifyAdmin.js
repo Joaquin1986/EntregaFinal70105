@@ -11,6 +11,7 @@ const verifyAdmin = async (req, res, next) => {
 const verifyViewsAdmin = async (req, res, next) => {
     const user = req.user;
     if (!user || user.role.toLowerCase() !== 'admin') {
+        console.log(req.url)
         const redirectUrl = ("/views" + req.url);
         return res.redirect('/views/login?redirect=' + redirectUrl);
     }

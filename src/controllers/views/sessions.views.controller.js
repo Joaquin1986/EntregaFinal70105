@@ -1,4 +1,4 @@
-class SessionsViewsControllers {
+class SessionsViewsController {
 
     static async login(req, res) {
         const { redirect } = req.query;
@@ -10,4 +10,4 @@ class SessionsViewsControllers {
     }
 }
 
-module.exports = { SessionsViewsControllers }
+module.exports = { SessionsViewsController }

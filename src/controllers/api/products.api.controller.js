@@ -1,8 +1,8 @@
-const { ProductServices } = require('../services/product.services');
-const { ProductRepository } = require('../repository/product.repository');
-const { buildResponse, parseThumbsIndex } = require('../utils/utils');
+const { ProductServices } = require('../../services/product.services');
+const { ProductRepository } = require('../../repository/product.repository');
+const { buildResponse, parseThumbsIndex } = require('../../utils/utils');
 
-class ProductControllers {
+class ProductsController {
 
     static async getProducts(req, res) {
         let { limit, page, sort, category, available } = req.query;
@@ -120,4 +120,4 @@ class ProductControllers {
 
 }
 
-module.exports = { ProductControllers }
+module.exports = { ProductsController }
