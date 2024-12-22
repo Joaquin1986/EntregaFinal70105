@@ -1,0 +1,46 @@
+components:
+  parameters:
+    schemas:
+      ReqRegisterUser:
+        type: object
+        required:
+          - first_name
+          - last_name
+          - email
+          - age
+          - password
+        properties:
+          first_name:
+            type: string
+            description: Nombre del usuario
+            example: Antonio
+          last_name:
+            type: string
+            description: Apellido del usuario
+            example: Pirez
+          email:
+            type: string
+            description: E-mail del usuario
+            example: antonio.pirez@mail.com
+          age:
+            type: number
+            description: Edad del usuario
+            example: 42
+          password:
+            type: string
+            description: Password del usuario
+            example: m1-P4zsW0rD!
+      ReqLogin:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            description: E-mail del usuario
+            example: antonio.pirez@mail.com
+          password:
+            type: string
+            description: Password del usuario
+            example: m1-P4zsW0rD!

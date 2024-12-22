@@ -1,0 +1,200 @@
+paths:
+  /api/sessions/current/:
+    get:
+      tags:
+        - Sessions/Users
+      summary: Devuelve la sesión actual de usuario
+      responses:
+        200:
+          description: Se devuelve la sesión actual de usuario
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResCurrentSession200"
+        401:
+          description: Acceso no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResCurrentSession401"
+        500:
+          description: Error interno al intentar devolver la sesión actual de usuario
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResCurrentSession500"
+  /api/sessions/user/{uid}:
+    get:
+      tags:
+        - Sessions/Users
+      summary: Devuelve el usuario consultado por parámetro en la URL (uid). Sólo para Administradores.
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          description: Id del usuario
+          schema:
+            type: string
+      responses:
+        200:
+          description: Se devuelve el usuario consultado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResGetUserById200"
+        400:
+          description: Request no válido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResGetUserById400"
+        401:
+          description: Acceso no autorizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResGetUserById401"
+        404:
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/UserNotFound"
+        500:
+          description: Error interno al intentar devolver el usuario consultado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResGetUserById500"
+  /api/sessions/register:
+    post:
+      tags:
+        - Sessions/Users
+      summary: Crea un nuevo usuario en la BD.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/parameters/schemas/ReqRegisterUser"
+            required: true
+      responses:
+        201:
+          description: Se creó un nuevo usuario
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResRegisterUser201"
+        400:
+          description: Request no válido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResRegisterUser400"
+        409:
+          description: Usuario ya existente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/UserAlreadyExists"
+        500:
+          description: No se pudo crear el usuario solicitado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResRegisterUser500"
+  /api/sessions/register/admin:
+    post:
+      tags:
+        - Sessions/Users
+      summary: Crea un nuevo Administrador en la BD (restringido a Administradores).
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/parameters/schemas/ReqRegisterUser"
+            required: true
+      responses:
+        201:
+          description: Se creó un nuevo administrador
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResRegisterAdmin201"
+        400:
+          description: Request no válido
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResRegisterAdmin400"
+        409:
+          description: Administrador ya existente
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/AdminAlreadyExists"
+        500:
+          description: Error interno al intentar crear un nuevo administrador
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Sessions/ResRegisterAdmin500"
+  /api/sessions/login:
+    post:
+      tags:
+        - Sessions/Users
+      summary: Inicia sesión con las credenciales recibidas
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/parameters/schemas/ReqLogin'
+            required: true
+      responses:
+        200:
+          description: Autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Sessions/ResLogin200'
+        400:
+          description: Request no válido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Sessions/ResLogin400'
+        401:
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Sessions/ResLogin401'
+        500:
+          description: No se pudo realizar login
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Sessions/ResLogin500'
+  /api/sessions/logout:
+    post:
+      tags:
+        - Sessions/Users
+      summary: Cierra la sesión actual
+      responses:
+        200:
+          description: La sesión ha sido finalizada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Sessions/ResLogout200'
+        400:
+          description: Sesión aún no iniciada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Sessions/ResLogout400'
+        500:
+          description: No se pudo cerrar la sesión
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schema/Sessions/ResLogout500'

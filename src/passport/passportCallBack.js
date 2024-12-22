@@ -7,7 +7,7 @@ const passportCallBack = (strategy, type) => {
         const result = await LogoutServices.getToken(req.cookies.token);    
         passport.authenticate(strategy, async (err, user, info) => {
             if (result && type === 'api') {
-                return res.status(401).json(createUserResponse(401, 'Unauthorized', req, 'User already logged out'));
+                return res.status(401).json(createUserResponse(401, 'No Autorizado', req, 'La sesión ya fue finalizada'));
             }
             if (result && type === 'views') {
                 const redirectUrl = ("/views" + req.url);
@@ -15,7 +15,7 @@ const passportCallBack = (strategy, type) => {
             }
             if (err) return next(err);
             if (!user && type === 'api') {
-                return res.status(401).json(createUserResponse(401, 'Unauthorized', req, info.messages ? info.messages : info.toString()));
+                return res.status(401).json(createUserResponse(401, 'No Autorizado', req, info.messages ? info.messages : info.toString()));
             }
             if (!user && type === 'views') {
                 const redirectUrl = ("/views" + req.url);

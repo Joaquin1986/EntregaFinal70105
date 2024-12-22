@@ -1,7 +1,7 @@
 const { User, UserDao } = require('../dao/user.dao');
 const { Cart, CartDao } = require('../dao/cart.dao');
 const { UserRepository } = require('../repository/user.repository');
-const { createUserPasswordHash, isValidPassword, generateUserToken } = require('../utils/utils');
+const { createUserPasswordHash, isValidPassword, generateUserToken, createUserResponse } = require('../utils/utils');
 
 
 class UserServices {

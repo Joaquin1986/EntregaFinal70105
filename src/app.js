@@ -3,6 +3,9 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const passport = require('./passport/passport');
+const swaggerJsdoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
+
 
 const productsApiRouter = require('./routes/api/products.api.router');
 const cartsApiRouter = require('./routes/api/carts.api.router');
@@ -12,6 +15,7 @@ const petsApiRouter = require('./routes/api/pets.api.router');
 const productsViewsRouter = require('./routes/views/products.views.router');
 const loginViewsRouter = require('./routes/views/login.views.router');
 const cartsViewsRouter = require('./routes/views/carts.views.router');
+const swaggerOptions = require('./docs/options');
 
 const { notFound404, notFound404Views } = require('./middleware/notFound404');
 const errorHandler = require('./middleware/errorHandler');
@@ -23,6 +27,8 @@ const connectMongoDB = require('./db/mongodb');
 
 const app = express();
 
+const specs = swaggerJsdoc(swaggerOptions);
+
 initServer(app).then(() => {
     connectMongoDB();
     app
@@ -33,6 +39,7 @@ initServer(app).then(() => {
         .use(express.json())
         .use(express.urlencoded({ extended: true }))
         .use(cookieParser())
+        .use('/apidocs', swaggerUi.serve, swaggerUi.setup(specs))
         .use('/api', productsApiRouter)
         .use('/api', cartsApiRouter)
         .use('/api', sessionsApiRouter)

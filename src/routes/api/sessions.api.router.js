@@ -6,10 +6,6 @@ const { verifyAdmin } = require('../../middleware/verifyAdmin');
 
 const sessionsApiRouter = Router();
 
-// El endpoint "/sessions/login" es para registrar los usuarios, mientras que el "/sessions/login" es 
-// para realizar inicio de sesión, pasando un obj usuario en el body.
-// El enpoint '/sessions/current' valida la sesión del usuario
-
 sessionsApiRouter.post('/sessions/register', SessionsController.createUser);
 
 // Solamente un admin puede crear a otro

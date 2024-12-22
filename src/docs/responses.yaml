@@ -1,0 +1,497 @@
+components:
+  schema:
+    Sessions:
+      ResCurrentSession200:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 200
+          result: Autorizado
+          path: /sessions/current
+          payload:
+            code: 945f840ab6417g3da7a192y4x
+            first_name: Nombre
+            last_name: Apellido
+            email: usuario@ejemplo.com
+            user_level: user
+            cart: 123p1789z5901c3dj7z547c2
+            pets: []
+      ResCurrentSession401:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 401
+          result: No Autorizado
+          path: /sessions/current
+          payload:
+            Error: "TokenExpiredError: jwt expired"
+      ResCurrentSession500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /sessions/current
+          payload:
+            internalError: Error interno del servidor
+      ResGetUserById200:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 200
+          result: Usuario encontrado
+          path: /sessions/user/945f840ab6417g3da7a192y4x
+          payload:
+            user:
+              code: 945f840ab6417g3da7a192y4x
+              first_name: Enrique
+              last_name: Carrizo
+              email: usuario@ejemplo.com
+              user_level: user
+              cart: 123p1789z5901c3dj7z547c2
+              pets: []
+      ResGetUserById400:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 400
+          result: Petición incorrecta
+          path: /sessions/user/945f840ab6417g3da7a192y4x'
+          payload:
+            Error: Petición incorrecta
+      ResGetUserById401:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 401
+          result: No Autorizado
+          path: /sessions/user/945f840ab6417g3da7a192y4x
+          payload:
+            Error: "Error: No auth token"
+      ResGetUserById500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /sessions/user/945f840ab6417g3da7a192y4x
+          payload:
+            internalError: Error interno del servidor
+      ResRegisterUser201:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 201
+          result: Usuario creado
+          path: /sessions/register/
+          payload:
+            newUser: "9669zttw9804f04b2b4fb1f7"
+      ResRegisterUser400:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 400
+          result: Petición incorrecta
+          path: /sessions/register
+          payload:
+            Error: Petición incorrecta
+      ResRegisterUser500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /sessions/register
+          payload:
+            internalError: Error interno del servidor
+      ResRegisterAdmin201:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 201
+          result: Administrador creado
+          path: /sessions/register/admin/
+          payload:
+            newAdmin: "5648fh4h4618z04b2b4fj4f7"
+      ResRegisterAdmin400:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 400
+          result: Petición incorrecta
+          path: /sessions/register/admin
+          payload:
+            Error: Petición incorrecta
+      ResRegisterAdmin500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /sessions/register/admin
+          payload:
+            internalError: Error interno del servidor
+      ResLogin200:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 200
+          result: Autorizado
+          path: /sessions/login
+          payload: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzRmMTc4YWI1OTAxYzNkYTdhMTkyYzQiLCJmaXJzdF9uYW1lIjoiVXN1YXJpbyIsImxhc3RfbmFtZSI6IlVzdWFyaW8iLCJlbWFpbCI6InVzZXJAdXNlci5jb20iLCJyb2xlIjoidXNlciIsImlhdCI6MTczNDg0OTM3MCwiZXhwIjoxNzM0ODQ5NjcwfQ.WdgGXYrKyXDKtCUfiHAwlnNlIIkRtv6RPrf_LDueuBA"
+      ResLogin400:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 400
+          result: Petición incorrecta
+          path: /sessions/login
+          payload:
+            Error: Petición incorrecta
+      ResLogin401:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 401
+          result: No Autorizado
+          path: /sessions/login
+          payload:
+            Error: Usuario/Password no válidos
+      ResLogin500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /sessions/login
+          payload:
+            internalError: Error interno del servidor
+      ResLogout200:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 200
+          result: Sesion Finalizada
+          path: /sessions/logout
+          payload: "La sesión ha sido finalizada"
+      ResLogout400:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 400
+          result: Sesión no iniciada
+          path: /sessions/logout
+          payload:
+            Error: Sesión aún no iniciada, no es posible cerrarla
+      ResLogout500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /sessions/logout
+          payload:
+            internalError: Error interno del servidor
+      UserNotFound:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 404
+          result: Usuario no encontrado
+          path: /sessions/user/67679b9a6b517f4697cb5210
+          payload:
+            Error: "Usuario #67679b9a6b517f4697cb5210 no encontrado"
+      UserAlreadyExists:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 409
+          result: Error
+          path: /sessions/register/
+          payload:
+            error: "Usuario ya existente"
+      AdminAlreadyExists:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 409
+          result: Error
+          path: /sessions/register/admin
+          payload:
+            error: "Administrador ya existente"
