@@ -65,6 +65,22 @@ class UserDao {
             throw new Error(`⛔ Error: No se pudo verificar si existe el usuario por id '${id}' => error: ${error.message}`)
         }
     }
+
+    // Agrega una mascota (pid) a la lista de un dueño (oid)
+    static async addPetToOwnersList(oid, pid) {
+        try {
+            if (mongoose.isValidObjectId(oid) && mongoose.isValidObjectId(pid)) {
+                const user = await userModel.findById(oid);
+                user.pets.push(pid);
+                await user.save();
+                return true;
+            }
+            return false;
+        } catch (error) {
+            throw new Error(`⛔ Error: No se pudo agregar la mascota a la lista del dueño => error: ${error.message}`)
+        }
+    }
+
 }
 
 module.exports = { User, UserDao };

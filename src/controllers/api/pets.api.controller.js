@@ -1,4 +1,5 @@
 const { PetRepository } = require("../../repository/pet.repository");
+const { createUserResponse } = require('../../utils/utils');
 
 class PetsController {
 
@@ -7,13 +8,16 @@ class PetsController {
         if (pid) {
             try {
                 const pet = await PetRepository.getPet(pid);
-                if (pet) return res.status(200).json({ "pet": pet });
-                return res.status(404).json({ "⛔Error": `Mascota #${pid} no encontrada` });
+                if (pet) return res.status(200).json(createUserResponse(200, "Mascota encontrada", req, { "pet": pet }));
+                return res.status(404).json(createUserResponse(404, "Mascota no encontrada", req, { "⛔Error": `Mascota #${pid} no encontrada` }));
             } catch (error) {
-                res.status(500).json({ "⛔Error interno:": error.message });
+                return res.status(500).json(createUserResponse(500, "Error interno", req, { "⛔Error interno:": error.message }));
             }
         } else {
-            res.status(400).json({ "⛔Error:": "Request no válido" });
+            return res.status(400).json(createUserResponse(400, 'Petición incorrecta', req, {
+                'Error':
+                    'Petición incorrecta (faltan valores para crear el usuario)'
+            }));
         }
     }
 

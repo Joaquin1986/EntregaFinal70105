@@ -19,7 +19,11 @@ const petSchema = new Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'user'
     },
-    image: String
+    image: String,
+    deleted: {
+        type: Boolean,
+        default: false
+    }
 });
 
 module.exports = mongoose.model('pet', petSchema);

@@ -6,4 +6,6 @@ const petsApiRouter = Router();
 
 petsApiRouter.get("/pets/:pid", passportCallBack('current', 'api'), PetsController.getPetById);
 
+petsApiRouter.post("/pets/", passportCallBack('current', 'api'), PetsController.getPetById);
+
 module.exports = petsApiRouter;

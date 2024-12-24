@@ -15,6 +15,7 @@ const petsApiRouter = require('./routes/api/pets.api.router');
 const productsViewsRouter = require('./routes/views/products.views.router');
 const loginViewsRouter = require('./routes/views/login.views.router');
 const cartsViewsRouter = require('./routes/views/carts.views.router');
+const adoptionsApiRouter = require('./routes/api/adoptions.api.router');
 const swaggerOptions = require('./docs/options');
 
 const { notFound404, notFound404Views } = require('./middleware/notFound404');
@@ -43,6 +44,7 @@ initServer(app).then(() => {
         .use('/api', productsApiRouter)
         .use('/api', cartsApiRouter)
         .use('/api', sessionsApiRouter)
+        .use('/api', adoptionsApiRouter)
         .use('/api/mocks', mocksApiRouter)
         .use('/api', petsApiRouter)
         .use('/views', productsViewsRouter)

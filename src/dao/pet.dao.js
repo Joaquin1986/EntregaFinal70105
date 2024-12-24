@@ -56,6 +56,49 @@ class PetDao {
         }
     }
 
+    // Obtiene todas las mascotas de la BD (se debería implementar Paginate si se cuenta con más tiempo)
+    static async getPets() {
+        try {
+            return await petModel.find({ deleted: false }).lean();
+        } catch (error) {
+            throw new Error(`⛔ Error al obtener datos de la BD: ${error.message}`);
+        }
+    }
+
+    // Borra una mascota de la BD
+    static async deletePet(id) {
+        let result = false;
+        try {
+            if (mongoose.isValidObjectId(id)) {
+                const petToDelete = await this.getPetById(id);
+                if (petToDelete) {
+                    await petModel.updateOne({ _id: id }, { $set: { deleted: true } });
+                    console.log(`✅ Mascota #${id} borrada exitosamente de la BD`);
+                    result = true;
+                }
+            }
+            return result;
+        } catch (error) {
+            throw new Error(`⛔ Error: no se pudo eliminar el producto id#${id} => ${error.message}`);
+        }
+    }
+
+    // Agrega el dueño a una mascota
+    static async addOwnerToPet(pid, oid) {
+        try {
+            if (mongoose.isValidObjectId(pid) && mongoose.isValidObjectId(oid)) {
+                const pet = await petModel.findById(pid);
+                pet.adopted = true;
+                pet.owner = oid;
+                await pet.save();
+                return true;
+            }
+            return false;
+        } catch (error) {
+            throw new Error(`⛔ Error: No se pudo agregar el dueño de la mascota => error: ${error.message}`)
+        }
+    }
+
 }
 
 module.exports = { Pet, PetDao };
