@@ -10,6 +10,9 @@ const petSchema = new Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'pet'
     }
+}, {
+    timestamps:
+        true
 });
 
 module.exports = mongoose.model('adoption', petSchema);

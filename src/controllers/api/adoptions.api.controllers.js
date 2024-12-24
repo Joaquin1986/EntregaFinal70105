@@ -1,4 +1,7 @@
+const { PetRepository } = require('../../repository/pet.repository');
+const { UserRepository } = require('../../repository/user.repository');
 const { AdoptionServices } = require('../../services/adoption.services');
+
 const { createUserResponse } = require('../../utils/utils');
 
 class AdoptionsController {
@@ -8,7 +11,11 @@ class AdoptionsController {
         if (aid) {
             try {
                 const adoption = await AdoptionServices.getAdoptionById(aid);
-                if (adoption) return res.status(200).json(createUserResponse(200, "Adopción encontrada", req, { "adoption": adoption }));
+                if (adoption) {
+                    const owner = await UserRepository.getUser(adoption.owner);
+                    const pet = await PetRepository.getPet(adoption.pet);
+                    return res.status(200).json(createUserResponse(200, "Adopción encontrada", req, { "code": adoption._id, "owner": owner, "pet": pet }));
+                }
                 return res.status(404).json(createUserResponse(404, "Adopción no encontrada", req, { "⛔Error": `Adopción #${aid} no encontrada` }));
             } catch (error) {
                 return res.status(500).json(createUserResponse(500, "Error interno", req, { "⛔Error interno:": error.message }));
