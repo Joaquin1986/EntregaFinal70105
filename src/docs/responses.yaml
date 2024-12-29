@@ -448,7 +448,7 @@ components:
             type: object
             description: Payload de la respuesta obtenida
         example:
-          status: 404
+          status: 
           result: Usuario no encontrado
           path: /sessions/user/67679b9a6b517f4697cb5210
           payload:
@@ -495,3 +495,319 @@ components:
           path: /sessions/register/admin
           payload:
             error: "Administrador ya existente"
+    Adoptions:
+      ResAdoptionsGetAll200:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: array
+            description: Payload de la respuesta obtenida
+            items:
+              type: object
+              properties:
+                _id:
+                  type: string
+                owner:
+                  type: string
+                pet:
+                  type: string
+                deleted:
+                  type: boolean
+                createdAt:
+                  type: string
+                updatedAt:
+                  type: string
+                __v:
+                  type: integer
+        example:
+          status: success,
+          payload:
+            [
+              {
+                _id: 6770855db25ca4127047195a,
+                owner: 677085609fa73c7463b154ee,
+                pet: 67708566cbde66b744946b41,
+                deleted: false,
+                createdAt: 2021-06-15T00:00:00.000Z,
+                updatedAt: 2021-06-15T00:00:00.000Z,
+                __v: 0,
+              },
+              {
+                _id: 6770854d434b64b70a878227,
+                owner: 67708552244e74359405d18c,
+                pet: 67708556e31d900916d11d5d,
+                deleted: false,
+                createdAt: 2021-06-15T00:00:00.000Z,
+                updatedAt: 2021-06-15T00:00:00.000Z,
+                __v: 0,
+              },
+            ]
+          totalPages: 1
+          prevPage: null
+          nextPage: null
+          page: 1
+          hasPrevPage: false
+          hasNextPage: false
+          prevLink: null
+          nextLink: null
+      ResGetAdoptionById200:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+            properties:
+              code:
+                type: string
+                description: código de la adopción
+              owner:
+                type: object
+                description: información del dueño
+                properties:
+                  code:
+                    type: string
+                    description: código del dueño
+                  first_name:
+                    type: string
+                    description: nombre del dueño
+                  last_name:
+                    type: string
+                    description: apellido del dueño
+                  email:
+                    type: string
+                    description: e-mail del dueño
+                  cart:
+                    type: string
+                    description: carrito del dueño
+                  pets:
+                    type: array
+                    description: array con mascotas que ya tiene el dueño
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: object
+                          description: código de la mascota del dueño
+                          properties:
+                            _id:
+                              type: string
+                              description: código de la mascota
+                            name:
+                              type: string
+                              description: nombre de la mascota
+                            specie:
+                              type: string
+                              description: especie de la mascota
+                            birthDate:
+                              type: string
+                              description: fecha de nacimiento de la mascota
+                            adopted:
+                              type: boolean
+                              description: indica si está adoptada la mascota (true) o no (false)
+                            owner:
+                              type: string
+                              description: código del dueño de la mascota
+                            image:
+                              type: string
+                              description: imagen de la mascota
+                            deleted:
+                              type: boolean
+                              description: indica si la mascota fue borrada de la BD (true) o no (false)
+                            __v:
+                              type: integer
+                              description: versionKey interna de Mongoose
+              pet:
+                type: object
+                description: información de la mascota que ha sido adoptada
+                properties:
+                  code:
+                    type: string
+                    description: código de la mascota que ha sido adoptada
+                  name:
+                    type: string
+                    description: nombre de la mascota que ha sido adoptada
+                  specie:
+                    type: string
+                    description: especie de la mascota que ha sido adoptada
+                  image:
+                    type: string
+                    description: imagen de la mascota que ha sido adoptada
+                  birthDate:
+                    type: string
+                    description: fecha de nacimiento de la mascota que ha sido adoptada
+                  adopted:
+                    type: boolean
+                    description: indica si está adoptada la mascota (true) o no (false)
+        example:
+          status: 200
+          result: Adopción encontrada
+          path: /adoptions/677059b2ca2a8a06979cf006
+          payload:
+            code: 677059b2ca2a8a06979cf006,
+            owner:
+              code: 67708566cbde66b744946b41
+              first_name: Amalia
+              last_name: Merino de Becerra
+              email: Amalia.MerinodeBecerra54@hotmail.com
+              cart: 677059b2ca2a8a06979ceffd
+              pets:
+                _id:
+                  _id: 677059b2ca2a8a06979cf001
+                  name: Leo
+                  specie: horse
+                  birthDate: 2017-03-19T00:00:00.000Z
+                  adopted: true
+                  owner: 677059b2ca2a8a06979cefff
+                  image: null
+                  deleted: false
+                  __v: 0
+            pet:
+              code: 677059b2ca2a8a06979cf001
+              name: Leo
+              specie: horse
+              birthDate: 2017-03-19T00:00:00.000Z
+              adopted: true
+      ResAdoptions400:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 400
+          result: Petición incorrecta
+          path: /adoptions
+          payload:
+            Error: Petición incorrecta+
+      ResAdoptions404:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 404
+          result: Adopción no encontrado
+          path: /adoptions/694984r23r6561189rf49
+          payload:
+            sError: "Adopción #694984r23r6561189rf49 no encontrada"
+      ResAdoptions500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /adoptions
+          payload:
+            internalError: Error interno del servidor      
+      ResPostAdoption201:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 201
+          result: Adopción creada
+          path: /adoptions/6770c737cd6185285f0473c1/6770c741e2dd832742fa7080
+          payload:
+            newAdoption: "9669zttw9804f04b2b4fb1f7"
+      ResPostAdoption400:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 400
+          result: Petición incorrecta
+          path: /adoptions/6770c705c008b905283b5054/6770c70e28a4ea50b6893b27
+          payload:
+            Error: Petición incorrecta
+      ResPostAdoption500:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 500
+          result: Error interno
+          path: /adoptions/6770c705c008b905283b5054/6770c70e28a4ea50b6893b27
+          payload:
+            internalError: Error interno del servidor

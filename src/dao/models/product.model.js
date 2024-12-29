@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const { Schema } = mongoose;
 const mongoosePaginate = require('mongoose-paginate-v2');
+const { Schema } = mongoose;
 
 const productSchema = new Schema({
     title: {

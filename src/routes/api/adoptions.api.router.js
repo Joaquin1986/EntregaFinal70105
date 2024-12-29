@@ -1,5 +1,7 @@
 const { Router } = require('express');
 const { AdoptionsController } = require('../../controllers/api/adoptions.api.controllers');
+// const { passportCallBack } = require('../../passport/passportCallBack');
+// const { verifyAdmin } = require('../../middleware/verifyAdmin');
 
 const adoptionsApiRouter = Router();
 

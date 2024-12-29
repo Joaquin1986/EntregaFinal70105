@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const { Schema } = mongoose;
 
-const petSchema = new Schema({
+const adoptionSchema = new Schema({
     owner: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'user'
@@ -9,10 +10,16 @@ const petSchema = new Schema({
     pet: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: 'pet'
+    },
+    deleted: {
+        type: Boolean,
+        default: false
     }
 }, {
     timestamps:
         true
 });
 
-module.exports = mongoose.model('adoption', petSchema);
+adoptionSchema.plugin(mongoosePaginate);
+
+module.exports = mongoose.model('adoption', adoptionSchema);

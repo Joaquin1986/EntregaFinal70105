@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const { Schema } = mongoose;
 
 const petSchema = new Schema({
@@ -17,7 +18,8 @@ const petSchema = new Schema({
     },
     owner: {
         type: mongoose.SchemaTypes.ObjectId,
-        ref: 'user'
+        ref: 'user',
+        default: null
     },
     image: String,
     deleted: {
@@ -25,5 +27,7 @@ const petSchema = new Schema({
         default: false
     }
 });
+
+petSchema.plugin(mongoosePaginate);
 
 module.exports = mongoose.model('pet', petSchema);

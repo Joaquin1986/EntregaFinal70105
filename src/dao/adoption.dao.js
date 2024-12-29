@@ -39,7 +39,7 @@ class AdoptionDao {
     }
 
 
-    // Devuelve todos los productos creados hasta el momento en la BD
+    // Devuelve todas las adociones creadas en la BD
     static async getAdoptions() {
         try {
             return await adoptionModel.find().lean();
@@ -48,6 +48,14 @@ class AdoptionDao {
         }
     }
 
+    // Devuelve las adopcione, aplicando el plugin paginate
+    static async getPaginatedAdoptions(criteria, options) {
+        try {
+            return await adoptionModel.paginate(criteria, options);
+        } catch (error) {
+            throw new Error(`⛔ Error al obtener listado de adopciones de la BD: ${error.message}`);
+        }
+    }
 }
 
 module.exports = { Adoption, AdoptionDao };

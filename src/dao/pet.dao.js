@@ -59,12 +59,20 @@ class PetDao {
     // Obtiene todas las mascotas de la BD (se debería implementar Paginate si se cuenta con más tiempo)
     static async getPets() {
         try {
-            return await petModel.find({ deleted: false }).lean();
+            return await petModel.find({ deleted: false, adopted: false }).lean();
         } catch (error) {
             throw new Error(`⛔ Error al obtener datos de la BD: ${error.message}`);
         }
     }
 
+    // Devuelve los productos con paginate el plugin
+    static async getPaginatedPets(criteria, options) {
+        try {
+            return await petModel.paginate(criteria, options);
+        } catch (error) {
+            throw new Error(`⛔ Error al obtener datos de la BD: ${error.message}`);
+        }
+    }
     // Borra una mascota de la BD
     static async deletePet(id) {
         let result = false;

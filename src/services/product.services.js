@@ -55,7 +55,6 @@ class ProductServices {
                     `Producto ya existente: ${prodFound.title} (codigo: ${prodFound.code})`
             };
         } catch (error) {
-            console.log(error)
             throw new Error(`⛔ Error: No se pudo crear el producto => error: ${error.message}`)
         }
     }

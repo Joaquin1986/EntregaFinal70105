@@ -147,7 +147,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/parameters/schemas/ReqLogin'
+              $ref: "#/components/parameters/schemas/ReqLogin"
             required: true
       responses:
         200:
@@ -155,25 +155,25 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Sessions/ResLogin200'
+                $ref: "#/components/schema/Sessions/ResLogin200"
         400:
           description: Request no válido
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Sessions/ResLogin400'
+                $ref: "#/components/schema/Sessions/ResLogin400"
         401:
           description: No autorizado
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Sessions/ResLogin401'
+                $ref: "#/components/schema/Sessions/ResLogin401"
         500:
           description: No se pudo realizar login
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Sessions/ResLogin500'
+                $ref: "#/components/schema/Sessions/ResLogin500"
   /api/sessions/logout:
     post:
       tags:
@@ -185,16 +185,114 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Sessions/ResLogout200'
+                $ref: "#/components/schema/Sessions/ResLogout200"
         400:
           description: Sesión aún no iniciada
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Sessions/ResLogout400'
+                $ref: "#/components/schema/Sessions/ResLogout400"
         500:
           description: No se pudo cerrar la sesión
           content:
             application/json:
               schema:
-                $ref: '#/components/schema/Sessions/ResLogout500'
+                $ref: "#/components/schema/Sessions/ResLogout500"
+  /api/adoptions/:
+    get:
+      tags:
+        - Adoptions
+      summary: Devuelve el listado de adopciones (paginado)
+      responses:
+        200:
+          description: Devuelve la página actual del resultado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResAdoptionsGetAll200"
+        400:
+          description: Petición incorrecta al intentar listar todas las adopciones
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResAdoptions400"
+        500:
+          description: Error interno al intentar listar todas las adopciones
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResAdoptions500"
+  /api/adoptions/{aid}:
+    get:
+      tags:
+        - Adoptions
+      summary: Devuelve la adopción de acuerdo al ID proporcionado por parámetro
+      parameters:
+        - in: path
+          name: aid
+          required: true
+          description: Id de la adopción
+          schema:
+            type: string
+      responses:
+        200:
+          description: Se devuelve la adopción consultada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResGetAdoptionById200"
+        400:
+          description: Petición incorrecta al intentar listar todas las adopciones
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResAdoptions400"
+        404:
+          description: Adopción no encontrada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResAdoptions404"
+        500:
+          description: Error interno al intentar listar todas las adopciones
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResAdoptions500"
+  /api/adoptions/{oid}/{pid}:
+    post:
+      tags:
+        - Adoptions
+      summary: Crea una nueva adopción en la BD
+      parameters:
+        - in: path
+          name: oid
+          required: true
+          description: Id del dueño que adoptará
+          schema:
+            type: string
+        - in: path
+          name: pid
+          required: true
+          description: Id de la mascota que será adoptada
+          schema:
+            type: string
+      responses:
+        201:
+          description: Se creó una nueva adopción en la BD
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResPostAdoption201"
+        400:
+          description: Petición incorrecta al intentar crear una nueva adopción en la BD
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResPostAdoption400"
+        500:
+          description: Error interno al intentar crear una nueva adopción en la BD
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResPostAdoption500"

@@ -10,6 +10,7 @@ const baseURL = "http://localhost:8080/";
 const publicPath = path.join(__dirname, '../../public');
 const viewsPath = path.join(__dirname, '../views');
 const thumbnailsPath = path.join(__dirname, '../../public/img/thumbnails');
+const petsImgPath = path.join(__dirname, '../../public/img/pets_img');
 
 /* Se configura Multer para que los guarde en el directorio 'public/thumbnails' y que mantenga el
 nombre de los archivos, agregando un sufijo para asegurar que sea únicos */
@@ -24,6 +25,20 @@ const storage = multer.diskStorage({
 });
 
 const uploadMulter = multer({ storage: storage });
+
+/* Se configura Multer para que guarde fotos de mascotas directorio 'public/pets_img' y que mantenga el
+nombre de los archivos, agregando un sufijo para asegurar que sea únicos */
+const PetsImgStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, petsImgPath);
+    },
+    filename: function (req, file, cb) {
+        const uniquePreffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        cb(null, uniquePreffix + '-' + file.originalname);
+    }
+});
+
+const uploadPetsMulter = multer({ storage: PetsImgStorage });
 
 function readJsonDataFromFile(file) {
     const filePath = path.join(__dirname, '..', 'data', file);
@@ -59,14 +74,16 @@ const buildResponse = (data, type, site, sort, category) => {
     if (data.hasPrevPage) {
         prevLink = `${baseURL}${type}/${site}?limit=${data.limit}&page=${data.prevPage}`;
         if (sort) prevLink += '&sort=' + sort;
-        if (category) prevLink += '&category=' + category;
+        if (site === 'products' && category) prevLink += '&category=' + category;
+        if (site === 'pets' && category) prevLink += '&specie=' + category;
     } else {
         prevLink = null;
     }
     if (data.hasNextPage) {
         nextLink = `${baseURL}${type}/${site}?limit=${data.limit}&page=${data.nextPage}`;
         if (sort) nextLink += '&sort=' + sort;
-        if (category) nextLink += '&category=' + category;
+        if (site === 'products' && category) nextLink += '&category=' + category;
+        if (site === 'pets' && category) nextLink += '&specie=' + category;
     } else {
         nextLink = null;
     }
@@ -142,6 +159,7 @@ const parseThumbsIndex = (deleteThumbIndex) => {
 
 module.exports = {
     uploadMulter,
+    uploadPetsMulter,
     publicPath,
     viewsPath,
     readJsonDataFromFile,

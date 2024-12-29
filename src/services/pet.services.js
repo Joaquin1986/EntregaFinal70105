@@ -11,6 +11,14 @@ class PetServices {
         }
     }
 
+    static async getPaginatedPets(criteria, options) {
+        try {
+            return await PetDao.getPaginatedPets(criteria, options);
+        } catch (error) {
+            throw new Error(`⛔ Error: No se pudieron listar las mascotas => error: ${error.message}`)
+        }
+    }
+
     // En caso de encontrarlo, devuelve un objeto 'Pet' de acuerdo a id proporcionado por argumento.
     static async getPetById(id) {
         try {
@@ -20,22 +28,26 @@ class PetServices {
         }
     }
 
-    static async createPet(name, specie, birthDate, image, req) {
-        const newPet = new Pet(name, specie, birthDate, false, image);
-        if (req.file)
-            newPet.image = req.file;
-        const result = await PetDao.addPet(newPet);
-        if (result) {
-            console.log("✅Mascota Creada --> id#" + result._id);
+    static async createPet(name, specie, birthDate, req) {
+        try {
+            const newPet = new Pet(name, specie, birthDate, false, null, null);
+            if (req.file)
+                newPet.image = req.file.path;
+            const result = await PetDao.addPet(newPet);
+            if (result) {
+                return {
+                    "error": false,
+                    "_id": result._id
+                };
+            }
             return {
-                "error": false,
-                "_id": result._id
+                "error": true,
+                "reason": "No se pudo crear la mascota solicitada"
             };
+        } catch (error) {
+            console.log(error);
+            throw new Error(`⛔ Error: No se pudo crear una nueva mascota => error: ${error.message}`);
         }
-        return {
-            "error": true,
-            "reason": "No se pudo crear la mascota solicitada"
-        };
     }
 
     static async deletePet(id) {

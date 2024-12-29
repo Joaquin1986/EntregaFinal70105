@@ -13,6 +13,14 @@ class AdoptionServices {
         }
     }
 
+    static async getPaginatedAdoptions(criteria, options) {
+        try {
+            return await AdoptionDao.getPaginatedAdoptions(criteria, options);
+        } catch (error) {
+            throw new Error(`⛔ Error: No se pudo obtener listado de adopciones => error: ${error.message}`)
+        }
+    }
+
     // En caso de encontrarlo, devuelve un objeto 'Adoption' de acuerdo a id proporcionado por argumento.
     static async getAdoptionById(id) {
         try {
@@ -50,7 +58,7 @@ class AdoptionServices {
         console.log("✅Adopción Creada --> id#" + result);
         return {
             "payload": { "newAdoption": result },
-            "code": 200,
+            "code": 201,
             "description": "Se creó la adopción"
         }
     }

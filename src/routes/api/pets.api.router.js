@@ -1,11 +1,13 @@
 const { Router } = require('express');
 const { PetsController } = require('../../controllers/api/pets.api.controller');
-const { passportCallBack } = require('../../passport/passportCallBack');
+const { uploadPetsMulter } = require('../../utils/utils');
 
 const petsApiRouter = Router();
 
-petsApiRouter.get("/pets/:pid", passportCallBack('current', 'api'), PetsController.getPetById);
+petsApiRouter.get("/pets/:pid", PetsController.getPetById);
 
-petsApiRouter.post("/pets/", passportCallBack('current', 'api'), PetsController.getPetById);
+petsApiRouter.get("/pets/", PetsController.getPets);
 
-module.exports = petsApiRouter;
+petsApiRouter.post("/pets/", uploadPetsMulter.single('image'), PetsController.createPet);
+
+module.exports = petsApiRouter; 

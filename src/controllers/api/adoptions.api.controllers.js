@@ -2,7 +2,7 @@ const { PetRepository } = require('../../repository/pet.repository');
 const { UserRepository } = require('../../repository/user.repository');
 const { AdoptionServices } = require('../../services/adoption.services');
 
-const { createUserResponse } = require('../../utils/utils');
+const { createUserResponse, buildResponse } = require('../../utils/utils');
 
 class AdoptionsController {
 
@@ -16,9 +16,9 @@ class AdoptionsController {
                     const pet = await PetRepository.getPet(adoption.pet);
                     return res.status(200).json(createUserResponse(200, "Adopción encontrada", req, { "code": adoption._id, "owner": owner, "pet": pet }));
                 }
-                return res.status(404).json(createUserResponse(404, "Adopción no encontrada", req, { "⛔Error": `Adopción #${aid} no encontrada` }));
+                return res.status(404).json(createUserResponse(404, "Adopción no encontrada", req, { "Error": `Adopción #${aid} no encontrada` }));
             } catch (error) {
-                return res.status(500).json(createUserResponse(500, "Error interno", req, { "⛔Error interno:": error.message }));
+                return res.status(500).json(createUserResponse(500, "Error interno", req, { "internalError:": error.message }));
             }
         } else {
             return res.status(400).json(createUserResponse(400, 'Petición incorrecta', req, {
@@ -29,11 +29,32 @@ class AdoptionsController {
     }
 
     static async getAdoptions(req, res) {
+        let { limit, page } = req.query;
+        limit = parseInt(limit);
+        page = parseInt(page);
+        let response = null;
+        let criteria = { "deleted": false };
+        if (!limit || limit < 1) limit = 10;
+        if (!page || page < 1) page = 1;
+        let options = { "limit": limit, "page": page };
         try {
-            const adoptions = await AdoptionServices.getAdoptions();
-            return res.status(200).json(createUserResponse(200, "Lista de Adopciones", req, { "adoptions": adoptions }));
+            const adoptions = await AdoptionServices.getPaginatedAdoptions(criteria, options);
+            response = buildResponse(adoptions, 'api', 'adoptions', null, null);
+            return res.status(200).json(response);
         } catch (error) {
-            return res.status(500).json(createUserResponse(500, "Error interno", req, { "⛔Error interno:": error.message }));
+            response = {
+                status: "error",
+                payload: ['error'],
+                totalPages: 0,
+                prevPage: null,
+                nextPage: null,
+                page: 0,
+                hasPrevPage: false,
+                hasNextPage: false,
+                prevLink: null,
+                nextLink: null,
+            };
+            return res.status(500).json(response);
         }
     }
 

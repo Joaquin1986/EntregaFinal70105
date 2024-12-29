@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const passport = require('./passport/passport');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const helmet = require("helmet");
 
 
 const productsApiRouter = require('./routes/api/products.api.router');
@@ -40,6 +41,7 @@ initServer(app).then(() => {
         .use(express.json())
         .use(express.urlencoded({ extended: true }))
         .use(cookieParser())
+        .use(helmet())
         .use('/apidocs', swaggerUi.serve, swaggerUi.setup(specs))
         .use('/api', productsApiRouter)
         .use('/api', cartsApiRouter)

@@ -17,7 +17,6 @@ class MockServices {
         const mockingPets = [];
         for (let i = 0; i < quantity; i++) {
             const newDate = new Date(faker.date.past({ years: 15 }));
-            const fakeDate = new Date(newDate);
             newDate.setUTCHours(0, 0, 0, 0);
             mockingPets.push(new Pet(
                 faker.animal.petName(),
@@ -50,7 +49,7 @@ class MockServices {
                 email: faker.internet.email({ firstName: firstName, lastName: lastName }),
                 age: faker.number.int({ min: 18, max: 70 }),
                 password: password,
-                role: role,
+                role: "role",
                 pets: []
             });
         }

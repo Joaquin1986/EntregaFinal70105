@@ -6,7 +6,7 @@ class PetDto {
         this.specie = pet.specie || '';
         this.image = pet.image || '';
         this.birthDate = pet.birthDate || '01-01-2024';
-        this.adopted = false;
+        this.adopted = pet.adopted;
     }
 }
 

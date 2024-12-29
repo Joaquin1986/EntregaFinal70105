@@ -1,8 +1,12 @@
-// Se implementan los Tests Funcionales para los endpoints del módulo Users.
+// Se implementan (de forma nativa) los Tests Funcionales para los endpoints del módulo Users.
 const { fakerES_MX: faker } = require('@faker-js/faker');
 const dotenv = require('dotenv').config();
 const { describe, test } = require('node:test');
 const assert = require('node:assert');
+
+const TEST_BASE_URL = process.env.TEST_BASE_URL || "http://localhost:";
+const PORT = process.env.SERVER_PORT || 8080;
+const usersApiURL = `${TEST_BASE_URL}${PORT}/api/sessions`;
 
 const fakeUser = (isAdmin) => {
     let role = '';
@@ -20,11 +24,7 @@ const fakeUser = (isAdmin) => {
     }
 };
 
-const TEST_BASE_URL = process.env.TEST_BASE_URL || "http://localhost:";
-const PORT = process.env.SERVER_PORT || 8080;
-const usersApiURL = `${TEST_BASE_URL}${PORT}/api/sessions`;
-
-describe('Tests sobre módulo Users de API', () => {
+describe('Tests sobre módulo Sessions(Users) de API', () => {
     let userRegister = null;
     let cookieToken = null;
     let newUserId = null;

@@ -24,7 +24,6 @@ class LogoutDao {
             }
             return false;
         } catch (error) {
-            console.log(error)
             throw new Error(`⛔ Error: No se pudo cerrar la sesión => error: ${error.message}`);
         }
     }
