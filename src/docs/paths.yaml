@@ -290,6 +290,18 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schema/Adoptions/ResPostAdoption400"
+        404:
+          description: Dueño o mascota no encontrados
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResPostAdoption404"
+        409:
+          description: Mascota ya adoptada
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schema/Adoptions/ResPostAdoption409"
         500:
           description: Error interno al intentar crear una nueva adopción en la BD
           content:

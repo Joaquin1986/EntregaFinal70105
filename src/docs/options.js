@@ -4,7 +4,7 @@ const swaggerOptions = {
         info: {
             title: 'Entrega Final de Backend III (Comisión 70105)',
             version: '2.0.1',
-            description: 'Documentación que explica el funcionamiento del módulo de Usuarios y Sesiones, implementado en la Entrega Final de Backend III (Comisión 70105)'
+            description: 'Documentación de los Endpoints de los Módulos <b>\'Sessions/Users\'</b> y <b>\'Adoptions\'</b>'
         },
         servers: [{ url: 'http://localhost:8080' }],
     },

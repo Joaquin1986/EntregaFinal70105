@@ -726,7 +726,7 @@ components:
           result: Adopción no encontrado
           path: /adoptions/694984r23r6561189rf49
           payload:
-            sError: "Adopción #694984r23r6561189rf49 no encontrada"
+            Error: "Adopción #694984r23r6561189rf49 no encontrada"
       ResAdoptions500:
         type: object
         properties:
@@ -790,6 +790,48 @@ components:
           path: /adoptions/6770c705c008b905283b5054/6770c70e28a4ea50b6893b27
           payload:
             Error: Petición incorrecta
+      ResPostAdoption404:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 404
+          result: Dueño o mascota no encontrados
+          path: /adoptions/6770c705c008b905283b5054/6770c70e28a4ea50b6893b27
+          payload:
+            error: "Dueño o mascota no encontrados"
+      ResPostAdoption409:
+        type: object
+        properties:
+          status:
+            type: number
+            description: Código de respuesta
+          result:
+            type: string
+            description: Resultado obtenido
+          path:
+            type: string
+            description: Ruta o path del request
+          payload:
+            type: object
+            description: Payload de la respuesta obtenida
+        example:
+          status: 409
+          result: Mascota adoptada
+          path: /adoptions/6770c705c008b905283b5054/6770c71e35a4da50b6893b49
+          payload:
+            error: "La mascota ya se encuentra adoptada"
       ResPostAdoption500:
         type: object
         properties:

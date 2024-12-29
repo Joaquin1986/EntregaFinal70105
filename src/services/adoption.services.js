@@ -33,23 +33,17 @@ class AdoptionServices {
     static async createAdoption(oid, pid) {
         const ownerExists = await UserDao.getUserById(oid);
         const petExists = await PetDao.getPetById(pid);
-        if (!petExists)
+        if (!petExists || !ownerExists)
             return {
-                "payload": { "error": "Mascota no encontrada" },
+                "payload": { "error": "Dueño o mascota no encontrados" },
                 "code": 404,
-                "description": "Mascota no encontrada"
+                "description": "Dueño o mascota no encontrados"
             }
         if (petExists.adopted)
             return {
                 "payload": { "error": "La mascota ya se encuentra adoptada" },
                 "code": 409,
                 "description": "Mascota adoptada"
-            }
-        if (!ownerExists)
-            return {
-                "payload": { "error": "Dueño no encontrado" },
-                "code": 404,
-                "description": "Dueño no encontrado"
             }
         const newAdoption = new Adoption(oid, pid)
         const result = await AdoptionDao.addAdoption(newAdoption);
