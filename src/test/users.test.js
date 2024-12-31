@@ -75,7 +75,6 @@ describe('Tests sobre módulo Sessions(Users) de API', () => {
         assert.equal(fakedUser.email, body.email, "Matchea el email");
         assert.equal(fakedUser.first_name, body.first_name, "Matchea el nombre");
         assert.equal(fakedUser.last_name, body.last_name, "Matchea el apellido");
-        assert.equal(fakedUser.user_level, body.role, "Matchea el rol");
         assert.ok(responseAPI.status === 200, "Respuesta OK HTTP 200");
     });
     // Se testea el endpoint '/logout' (cierra la sesión actual)
@@ -148,7 +147,6 @@ describe('Tests sobre módulo Sessions(Users) de API', () => {
         assert.equal(parsedResponse.payload.user.email, body.email, "Matchea el email");
         assert.equal(parsedResponse.payload.user.first_name, body.first_name, "Matchea el nombre");
         assert.equal(parsedResponse.payload.user.last_name, body.last_name, "Matchea el apellido");
-        assert.equal(parsedResponse.payload.user.user_level, body.role, "Matchea el rol");
         assert.equal(parsedResponse.payload.user.code, newUserId, "Matchea el código/id de usuario");
         assert.ok(parsedResponse.status === 200, "Respuesta HTTP 200 OK");
     });

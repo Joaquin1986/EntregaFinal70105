@@ -49,7 +49,6 @@ class AdoptionServices {
         const result = await AdoptionDao.addAdoption(newAdoption);
         await UserDao.addPetToOwnersList(oid, pid);
         await PetDao.addOwnerToPet(pid, oid);
-        console.log("✅Adopción Creada --> id#" + result);
         return {
             "payload": { "newAdoption": result },
             "code": 201,

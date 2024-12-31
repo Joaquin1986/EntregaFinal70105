@@ -16,6 +16,50 @@ components:
           payload:
             type: object
             description: Payload de la respuesta obtenida
+            properties:
+              code:
+                type: string
+                description: código del dueño
+              first_name:
+                type: string
+                description: nombre del dueño
+              last_name:
+                type: string
+                description: apellido del dueño
+              email:
+                type: string
+                description: e-mail del dueño
+              cart:
+                type: string
+                description: carrito del dueño
+              pets:
+                type: array
+                description: array con mascotas que ya tiene el dueño
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: object
+                      description: código de la mascota del dueño
+                      properties:
+                        _id:
+                          type: string
+                          description: código de la mascota
+                        name:
+                          type: string
+                          description: nombre de la mascota
+                        specie:
+                          type: string
+                          description: especie de la mascota
+                        birthDate:
+                          type: string
+                          description: fecha de nacimiento de la mascota
+                        adopted:
+                          type: boolean
+                          description: indica si está adoptada la mascota (true) o no (false)
+                        image:
+                          type: string
+                          description: imagen de la mascota
         example:
           status: 200
           result: Autorizado
@@ -27,7 +71,14 @@ components:
             email: usuario@ejemplo.com
             user_level: user
             cart: 123p1789z5901c3dj7z547c2
-            pets: []
+            pets:
+              _id:
+                _id: 677059b2ca2a8a06979cf001
+                name: Leo
+                specie: dog
+                birthDate: 2018-03-19T00:00:00.000Z
+                adopted: true
+                image: null
       ResCurrentSession401:
         type: object
         properties:
@@ -85,6 +136,53 @@ components:
           payload:
             type: object
             description: Payload de la respuesta obtenida
+            properties:
+              user:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    description: código del dueño
+                  first_name:
+                    type: string
+                    description: nombre del dueño
+                  last_name:
+                    type: string
+                    description: apellido del dueño
+                  email:
+                    type: string
+                    description: e-mail del dueño
+                  cart:
+                    type: string
+                    description: carrito del dueño
+                  pets:
+                    type: array
+                    description: array con mascotas que ya tiene el dueño
+                    items:
+                      type: object
+                      properties:
+                        _id:
+                          type: object
+                          description: código de la mascota del dueño
+                          properties:
+                            _id:
+                              type: string
+                              description: código de la mascota
+                            name:
+                              type: string
+                              description: nombre de la mascota
+                            specie:
+                              type: string
+                              description: especie de la mascota
+                            birthDate:
+                              type: string
+                              description: fecha de nacimiento de la mascota
+                            adopted:
+                              type: boolean
+                              description: indica si está adoptada la mascota (true) o no (false)
+                            image:
+                              type: string
+                              description: imagen de la mascota
         example:
           status: 200
           result: Usuario encontrado
@@ -97,7 +195,14 @@ components:
               email: usuario@ejemplo.com
               user_level: user
               cart: 123p1789z5901c3dj7z547c2
-              pets: []
+              pets:
+                _id:
+                  _id: 677059b2ca2a8a06979cf001
+                  name: Leo
+                  specie: dog
+                  birthDate: 2018-03-19T00:00:00.000Z
+                  adopted: true
+                  image: null
       ResGetUserById400:
         type: object
         properties:
@@ -448,7 +553,7 @@ components:
             type: object
             description: Payload de la respuesta obtenida
         example:
-          status: 
+          status: 404 
           result: Usuario no encontrado
           path: /sessions/user/67679b9a6b517f4697cb5210
           payload:
@@ -622,18 +727,9 @@ components:
                             adopted:
                               type: boolean
                               description: indica si está adoptada la mascota (true) o no (false)
-                            owner:
-                              type: string
-                              description: código del dueño de la mascota
                             image:
                               type: string
                               description: imagen de la mascota
-                            deleted:
-                              type: boolean
-                              description: indica si la mascota fue borrada de la BD (true) o no (false)
-                            __v:
-                              type: integer
-                              description: versionKey interna de Mongoose
               pet:
                 type: object
                 description: información de la mascota que ha sido adoptada
@@ -675,10 +771,7 @@ components:
                   specie: horse
                   birthDate: 2017-03-19T00:00:00.000Z
                   adopted: true
-                  owner: 677059b2ca2a8a06979cefff
                   image: null
-                  deleted: false
-                  __v: 0
             pet:
               code: 677059b2ca2a8a06979cf001
               name: Leo
@@ -747,7 +840,7 @@ components:
           result: Error interno
           path: /adoptions
           payload:
-            internalError: Error interno del servidor      
+            internalError: Error interno del servidor
       ResPostAdoption201:
         type: object
         properties:

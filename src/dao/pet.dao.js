@@ -48,7 +48,7 @@ class PetDao {
     static async getPetById(id) {
         try {
             if (mongoose.isValidObjectId(id)) {
-                return await petModel.findById(id).lean();
+                return await petModel.findOne({ _id: id, deleted: false }).lean();
             }
             return undefined;
         } catch (error) {
@@ -59,7 +59,7 @@ class PetDao {
     // Obtiene todas las mascotas de la BD (se debería implementar Paginate si se cuenta con más tiempo)
     static async getPets() {
         try {
-            return await petModel.find({ deleted: false, adopted: false }).lean();
+            return await petModel.find({ deleted: false }).lean();
         } catch (error) {
             throw new Error(`⛔ Error al obtener datos de la BD: ${error.message}`);
         }

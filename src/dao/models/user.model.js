@@ -50,12 +50,12 @@ const userSchema = new Schema({
 
 userSchema.pre('findOne', function () {
     this.populate('cart');
-    this.populate('pets._id');
+    this.populate('pets._id', 'name specie image birthDate adopted');
 });
 
 userSchema.pre('findById', function () {
     this.populate('cart');
-    this.populate('pets._id');
+    this.populate('pets._id', 'name specie birthDate image adopted');
 });
 
 module.exports = mongoose.model('user', userSchema);

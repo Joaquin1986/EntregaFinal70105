@@ -38,10 +38,7 @@ class MockServices {
         for (let i = 0; i < quantity; i++) {
             const firstName = faker.person.firstName();
             const lastName = faker.person.lastName();
-            const admin = faker.datatype.boolean();
-            let role = '';
             let password = '';
-            admin ? role = 'admin' : role = 'user';
             encripted ? password = await createUserPasswordHash(USERS_PWD) : password = USERS_PWD;
             mockingUsers.push({
                 first_name: firstName,
@@ -49,7 +46,7 @@ class MockServices {
                 email: faker.internet.email({ firstName: firstName, lastName: lastName }),
                 age: faker.number.int({ min: 18, max: 70 }),
                 password: password,
-                role: "role",
+                role: "user",
                 pets: []
             });
         }

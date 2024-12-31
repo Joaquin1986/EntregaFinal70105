@@ -1,17 +1,21 @@
-# Proyecto FINAL de Backend III. Coderhouse (Comisión 70105)
+# Proyecto FINAL de Backend III - Coderhouse (Comisión 70105)
 
-[Proyecto FINAL de Backend III] para Comisión 70105 de Coderhouse
+Proyecto Final de **Backend III** para **Comisión 70105** de **Coderhouse**
+
+## Link a imagen de Docker en Dockerhub
+
+[https://hub.docker.com/r/joaquinkulik/entregafinal70105](https://hub.docker.com/r/joaquinkulik/entregafinal70105)
 
 ## Descripción de la App
 
-Esta APP cumple con los requisitos de la entrega final de Backend III: Documenación, Tests Funcionales e Imagen de Docker a Dockerhub. Además, se incorporan conceptos o temas vistos a lo largo de los cursos pasados de Backend I y II, realizando una suerte de "merge" entre el proyecto pre-existente (eCommerce de Productos) y el proyecto de Adopción de Mascotas, que se plantea en el curso actual.
-La base es de NodeJS, Express y MongoDB (con Mongoose), pero también se implementan vistas, sistema de autenticación con login y registro de usuarios, productos en tiempo real con socket IO, etc.
+Esta APP cumple con los requisitos de la entrega final de **Backend III**: Documenación, Tests Funcionales e Imagen de Docker a Dockerhub, además de incorporar conceptos o temas vistos a lo largo de los cursos pasados de **Backend I** y **Backend II**. Esto se logra realizando una suerte de "merge" entre mi proyecto previo (eCommerce de productos) y algunas funcionalidades del proyecto de Adopción de Mascotas, que se plantea en este curso.
+La base es de NodeJS, Express y MongoDB (con Mongoose), pero también se implementan vistas mediante Handlebars, registro y autenticación/login (JWT), productos en tiempo real con socket.IO, etc.
 
 ## Ejecución de la App
 
 Luego de descargar o clonar el proyecto, se debe copiar o crear un archivo .env en la raíz del proyecto con el formato descripto en el archivo ".env.example", ubicado el la raíz del proyecto.
 
-Posicionados en el directorio de la APP, se pueden ejecutar los siguientes comandos en una CLI (ya sea Poowershell, Bash o la que se elija):
+Posicionados en el directorio de la APP, se pueden ejecutar los siguientes comandos en una CLI (ya sea Powershell, Bash, etc.):
 
 ### `npm install`
 
@@ -36,7 +40,6 @@ La App necesita la importación/import (se recomienda [NPM](https://www.npmjs.co
 ✔️ dotenv ([https://www.npmjs.com/package/dotenv](https://www.npmjs.com/package/dotenv))<br>
 ✔️ express ([https://www.npmjs.com/package/express](https://www.npmjs.com/package/express))<br>
 ✔️ express-handlebars ([https://www.npmjs.com/package/express-handlebars](https://www.npmjs.com/package/express-handlebars))<br>
-✔️ helmlet ([https://www.npmjs.com/package/helmet](https://www.npmjs.com/package/helmet))<br>
 ✔️ jsonwebtoken ([https://npmjs.com/package/jsonwebtoken](https://npmjs.com/package/jsonwebtoken))<br>
 ✔️ mongoose ([https://www.npmjs.com/package/mongoose](https://www.npmjs.com/package/mongoose))<br>
 ✔️ mongoose-paginate-v2 ([https://www.npmjs.com/package/mongoose-paginate-v2](https://www.npmjs.com/package/mongoose-paginate-v2))<br>
